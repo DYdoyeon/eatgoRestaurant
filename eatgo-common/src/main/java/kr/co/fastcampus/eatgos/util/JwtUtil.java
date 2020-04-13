@@ -1,5 +1,7 @@
 package kr.co.fastcampus.eatgos.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -10,12 +12,11 @@ import java.security.Key;
 
 
 public class JwtUtil {
-    private final String secret;
+   private final String secret;
     private Key key;
     public JwtUtil(String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
-
-        this.secret = secret;
+      this.secret = secret;
     }
 
     public String createToken(Long userId, String name) {
@@ -26,6 +27,14 @@ public class JwtUtil {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return token;
+       return token;
+    }
+
+    public Claims getClaims(String token)
+    {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

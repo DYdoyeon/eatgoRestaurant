@@ -26,27 +26,40 @@ dependencies {
 
 	implementation project(':eatgo-common')
 
-	testCompile 'junit:junit:4.12'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa'){
+	//	exclude 'hibernate-entitymanager'
+	}
 
-	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation 'com.h2database:h2'
 	implementation 'mysql:mysql-connector-java'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok:1.18.10'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude module: 'junit-jupiter-engine'
-		//	exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+
 	}
 
-//	testImplementation('org.junit.jupiter:junit-jupiter-api:5.5.1')
-//	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.1')
-//	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:1.5.1')
+
+
+	implementation 'junit:junit:4.12'
+
+	implementation group:'org.javassist', name:'javassist', version :'3.23.1-GA'
+
+
+//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//		//	exclude module: 'junit-jupiter-engine'
+//		exclude module:"junit"
+//		//exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//	}
+
+
+//	testImplementation('org.junit.jupiter:junit-jupiter-api')
+	//testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.1')
+//	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 //	testRuntimeOnly('org.junit.platform:junit-platform-engine:1.5.1')
 //	testRuntimeOnly('org.junit.platform:junit-platform-commons:1.5.1')
 
@@ -58,10 +71,3 @@ test {
 	useJUnitPlatform()
 }
 
-jar {
-	enabled = true
-}
-
-bootJar {
-	enabled = false
-}
